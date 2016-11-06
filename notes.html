@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Untitled</title>
+    <meta charset="utf-8">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <h2>JavaScript поиск по странице</h2>
+    <input type="text" id="text-to-find" value="">
+    <input type="button" onclick="javascript: FindOnPage('text-to-find'); return false;" value="Искать"/>
+    <input type="button" onclick="javascript: oldstyle();" value="Очистить поиск"/>
+    <input type="button" onclick="javascript: clearLocStor(); " value="Очистить Localstorage"/>
+    <br/><i>Введите слово, содержащееся в хештеге.</i>
+
+    <hr/>
+    <div>при нажатии на Добавить заметку создается прозрачный блок, в котором можно писать по клику мыши. удаляется блок двойным кликом мыши по блоку</div>
+    <section>
+    <div id="parentId">
+
+
+</div>
+</section>
+<a href="#" onclick="addNote()">Добавить заметку</a>
+<div id="list">&nbsp;
+</div>
+<script src="script1.js" type="text/javascript"></script>
+<script>
+
+    document.onclick = function( e )
+    {
+       // alert(document.getElementById(e.target.id));
+        document.querySelectorAll(' #parentId');
+        document.ondblclick = function( e ) {
+            clickid = document.getElementById(e.target.id)
+            clickid.parentNode.removeChild(clickid); //удаление по даблклику
+        }
+        var editables = document.querySelectorAll(' #parentId');
+        setInterval(function() {
+            for (var i = 0; i < editables.length; i++) {
+                localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+
+            }
+        }, 1000); //cохрняет полностью шапку div parentid что нехорошо для localSt. но веселит :)
+
+    }
+
+    if (typeof localStorage["increment"] === "undefined") {
+        localStorage.setItem("increment","0");} //cоздание переменной для инкрементов и проверка его существ-я в localstorage
+
+for (var i=0; i < localStorage.length; i++) {
+    var str = document.createElement("div");
+  str.setAttribute("id", (localStorage.key(i))); //присвоение id из значения LocalSt.
+    str.setAttribute("contenteditable", "true"); //делает div изменяемым
+    document.getElementById("parentId").appendChild(str); //включение в parentId дивов
+    var zn = localStorage.getItem(localStorage.key(i));
+    document.getElementById((localStorage.key(i))).innerHTML = zn; //присваивание значения из localSt.
+  }
+    function addNote() {
+        increment = JSON.parse(localStorage.getItem("increment"));
+        var newdiv = document.createElement("div");
+        var counter = "box" + increment;
+        newdiv.setAttribute("id", counter);
+//        var datas = "'{ 'id': '"  + newdiv.getAttribute("id") + "' }'";
+        newdiv.setAttribute("contenteditable", "true");
+        localStorage.setItem(counter, "");
+        localStorage.setItem("increment", increment + 1); //для создания инкремента в конце
+
+        document.getElementById("parentId").appendChild(newdiv);
+    }
+    function resetstyle() {
+        document.getElementById("parentId").style.background="red";
+    }
+   function oldstyle() {
+       getText = localStorage.getItem("parentId");
+//       alert(getText)
+       changeStyle = getText.replace("background:red", " ");
+       //alert(changeStyle)
+       localStorage.setItem("parentId", changeStyle);
+       location.reload();
+   }  //для затирки поиска
+
+    function clearLocStor() {
+        window.localStorage.clear();
+        localStorage.removeItem("parentId");
+        location.reload();
+            }
+    //alert(window.document.getElementById(increment));//.setAttribute("display", "none");
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #eee;
+}
+
+input{
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.parentId{
+    padding: 10px;
+    cursor: default;
+    border-radius: 7px;
+}
+
+.parentId:hover{
+    background-color: lightblue;
+}
+.button {
+    color: #fff; /* цвет текста */
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(212,75,56); /* фон кнопки */
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+.button { background: rgb(232,95,76); } /* при наведении курсора мышки */
+.button { background: rgb(152,15,0); } /* при нажатии */
+.increment  {
+    display: none;
+}
